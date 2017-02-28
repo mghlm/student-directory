@@ -11,43 +11,36 @@ def input_students
 
     puts "Country:"
     country = gets.chomp
-      break if country.empty? 
+      break if country.empty?
 
     puts "Hobby:"
     hobby = gets.chomp
-      if hobby.empty?
-        break
-      end
+      break if hobby.empty?
 
     puts "Height:"
     height = gets.chomp
-      if height.empty?
-        break
-      end
+      break if height.empty?
 
     students << {name: name, country: country, hobby: hobby, height: height, cohort: :november}
     puts "Now we have #{students.count} students"
 
     puts "Name:"
     name = gets.chomp
-      if name.empty?
-        break
-      end
-
+      break if name.empty?
   end
 
   students
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
+  puts "The students of Villains Academy".center(70)
+  puts "------------".center(70)
 end
 
 def print(students)
   count = 0
   while count < students.count
-    puts "#{students[count][:name]}, #{students[count][:country]}, #{students[count][:hobby]}, #{students[count][:height]} (#{students[count][:cohort]} cohort)"
+    puts "#{students[count][:name]}, #{students[count][:country]}, #{students[count][:hobby]}, #{students[count][:height]} (#{students[count][:cohort]} cohort)".center(70)
     count += 1
   end
 end
