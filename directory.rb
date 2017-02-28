@@ -11,34 +11,28 @@ def input_students
 
     puts "Country:"
     country = gets.chomp
-
-    if country.empty?
-      break
-    end
+      break if country.empty? 
 
     puts "Hobby:"
     hobby = gets.chomp
-
-    if hobby.empty?
-      break
-    end
+      if hobby.empty?
+        break
+      end
 
     puts "Height:"
     height = gets.chomp
-
-    if height.empty?
-      break
-    end 
+      if height.empty?
+        break
+      end
 
     students << {name: name, country: country, hobby: hobby, height: height, cohort: :november}
     puts "Now we have #{students.count} students"
 
     puts "Name:"
     name = gets.chomp
-
-    if name.empty?
-      break
-    end
+      if name.empty?
+        break
+      end
 
   end
 
