@@ -21,7 +21,18 @@ def input_students
     height = gets.chomp
       break if height.empty?
 
-    students << {name: name, country: country, hobby: hobby, height: height, cohort: :november}
+    puts "Cohort:"
+    cohort = gets.chomp.downcase.to_sym
+      break if cohort.empty?
+      valid_months = [:january, :february, :march, :april, :may, :june, :july, :august, :september, :october, :november, :december]
+        while !valid_months.include?(cohort)
+          puts "Please enter a calendar month"
+          cohort = gets.chomp.downcase.to_sym
+        end
+
+
+
+    students << {name: name, country: country, hobby: hobby, height: height, cohort: cohort}
     puts "Now we have #{students.count} students"
 
     puts "Name:"
