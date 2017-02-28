@@ -23,7 +23,8 @@ end
 
 def print(students)
   students.each.with_index(1) { |student, index|
-    if student[:name].downcase.split('')[0] == "m"
+    #if student[:name].downcase.split('')[0] == "m"
+    if student[:name].length < 12
       puts "#{index}: #{student[:name]} (#{student[:cohort]} cohort)"
     end
   }
