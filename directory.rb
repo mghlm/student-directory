@@ -30,8 +30,6 @@ def input_students
           cohort = gets.chomp.downcase.to_sym
         end
 
-
-
     students << {name: name, country: country, hobby: hobby, height: height, cohort: cohort}
     puts "Now we have #{students.count} students"
 
@@ -48,11 +46,12 @@ def print_header
   puts "------------".center(70)
 end
 
+
 def print(students)
-  count = 0
-  while count < students.count
-    puts "#{students[count][:name]}, #{students[count][:country]}, #{students[count][:hobby]}, #{students[count][:height]} (#{students[count][:cohort]} cohort)".center(70)
-    count += 1
+  require 'date'
+  students = students.sort_by {|x| x[:cohort] }.reverse
+  students.each do |student|
+    puts "#{student[:name]}, #{student[:country]}, #{student[:hobby]}, #{student[:height]} (#{student[:cohort]} cohort)".center(70)
   end
 end
 
