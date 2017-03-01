@@ -6,28 +6,28 @@ def input_students
   valid_months = [:january, :february, :march, :april, :may, :june, :july, :august, :september, :october, :november, :december]
 
   puts "Name:"
-  name = gets.delete("\n")
+  name = gets.chomp
 
   while !name.empty? do
 
     puts "Country:"
-    country = gets.delete("\n")
+    country = gets.chomp
       break if country.empty?
 
     puts "Hobby:"
-    hobby = gets.delete("\n")
+    hobby = gets.chomp
       break if hobby.empty?
 
     puts "Height:"
-    height = gets.delete("\n")
+    height = gets.chomp
       break if height.empty?
 
     puts "Cohort:"
-    cohort = gets.delete("\n").downcase.to_sym
+    cohort = gets.chomp.downcase.to_sym
       break if cohort.empty?
         while !valid_months.include?(cohort)
           puts "Please enter a calendar month"
-          cohort = gets.delete("\n").downcase.to_sym
+          cohort = gets.chomp.downcase.to_sym
         end
 
     students << {name: name, country: country, hobby: hobby, height: height, cohort: cohort}
@@ -39,7 +39,7 @@ def input_students
     end
 
     puts "Name:"
-    name = gets.delete("\n")
+    name = gets.chomp
       break if name.empty?
   end
 
@@ -64,7 +64,11 @@ def print_by_cohort(students)
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} students."
+  if names.count > 1
+    puts "Overall, we have #{names.count} students."
+  else
+    puts "Overall, we have #{names.count} student."
+  end 
 end
 
 students = input_students
