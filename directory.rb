@@ -57,10 +57,10 @@ def print_by_cohort(students)
   if students.length > 0
     cohorts = students.map do |student| student[:cohort] end
       cohorts.uniq.each do |x|
-        puts "#{x} cohort:"
+        puts "#{x.capitalize} Cohort:"
         students.each do |student|
         if student[:cohort] == x
-          puts "Name: #{student[:name]}, Country of Origin: #{student[:country]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}"
+          puts "- Name: #{student[:name]}, Country of Origin: #{student[:country]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}"
         end
       end
     end
@@ -75,7 +75,34 @@ def print_footer(names)
   end
 end
 
-students = input_students
-print_header(students)
-print_by_cohort(students)
-print_footer(students)
+def interactive_menu
+  students = []
+  loop do
+
+    puts "1. Inputs the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+
+    selection = gets.chomp
+
+    case selection
+      when "1"
+        students = input_students
+      when "2"
+        print_header(students)
+        print_by_cohort(students)
+        print_footer(students)
+      when "9"
+        exit
+      else
+        puts "I don't know what you mean, try again"
+    end
+  end
+end
+
+
+#students = input_students
+interactive_menu
+#print_header(students)
+#print_by_cohort(students)
+#print_footer(students)
