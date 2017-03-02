@@ -46,28 +46,36 @@ def input_students
   students
 end
 
-def print_header
-  puts "The students of Villains Academy".center(70)
-  puts "------------".center(70)
+def print_header(students)
+  if students.length > 0
+    puts "The students of Villains Academy".center(70)
+    puts "------------".center(70)
+  end
 end
 
 def print_by_cohort(students)
-  cohorts = students.map do |student| student[:cohort] end
-    cohorts.uniq.each do |x|
-      puts "#{x} cohort:"
-      students.each do |student|
-      if student[:cohort] == x
-        puts "#{student[:name]}"
+  if students.length > 0
+    cohorts = students.map do |student| student[:cohort] end
+      cohorts.uniq.each do |x|
+        puts "#{x} cohort:"
+        students.each do |student|
+        if student[:cohort] == x
+          puts "Name: #{student[:name]}, Country of Origin: #{student[:country]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}"
+        end
       end
     end
+  else
+    puts "There are no students enrolled at the moment."
   end
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} students."
+  if names.length > 0
+    puts "Overall, we have #{names.count} students."
+  end
 end
 
 students = input_students
-print_header
+print_header(students)
 print_by_cohort(students)
 print_footer(students)
