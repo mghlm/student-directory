@@ -32,7 +32,8 @@ def input_students
           cohort = STDIN.gets.delete("\n").downcase.to_sym
         end
 
-    @students << {name: name, country: country, hobby: hobby, height: height, cohort: cohort}
+    #@students << {name: name, country: country, hobby: hobby, height: height, cohort: cohort}
+    add_students_to_list(name, country, hobby, height, cohort)
 
     if @students.count > 1
       puts "Now we have #{@students.count} students"
@@ -128,7 +129,7 @@ end
 def save_students
   file = File.open("students.csv", "w")
   @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
+    student_data = [student[:name], student[:country], student[:hobby], student[:height], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
@@ -136,10 +137,11 @@ def save_students
 end
 
 def load_students(filename = "students.csv")
-  file = File.open("students.csv", "r")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+  name, country, hobby, height, cohort = line.chomp.split(',')
+    #@students << {name: name, country: country, hobby: hobby, height: height, cohort: cohort.to_sym}
+    add_students_to_list(name, country, hobby, height, cohort)
   end
   file.close
 end
@@ -156,12 +158,9 @@ def try_load_students
   end
 end
 
+def add_students_to_list(name, country, hobby, height, cohort)
+  @students << {name: name, country: country, hobby: hobby, height: height, cohort: cohort.to_sym}
+end
 
-
-
-#students = input_students
 try_load_students
 interactive_menu
-#print_header(students)
-#print_by_cohort(students)
-#print_footer(students)
