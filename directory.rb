@@ -8,28 +8,28 @@ def input_students
   valid_months = [:january, :february, :march, :april, :may, :june, :july, :august, :september, :october, :november, :december]
 
   puts "Name:"
-  name = gets.delete("\n")
+  name = STDIN.gets.delete("\n")
 
   while !name.empty? do
 
     puts "Country:"
-    country = gets.delete("\n")
+    country = STDIN.gets.delete("\n")
       break if country.empty?
 
     puts "Hobby:"
-    hobby = gets.delete("\n")
+    hobby = STDIN.gets.delete("\n")
       break if hobby.empty?
 
     puts "Height:"
-    height = gets.delete("\n")
+    height = STDIN.gets.delete("\n")
       break if height.empty?
 
     puts "Cohort:"
-    cohort = gets.delete("\n").downcase.to_sym
+    cohort = STDIN.gets.delete("\n").downcase.to_sym
       break if cohort.empty?
         while !valid_months.include?(cohort)
           puts "Please enter a calendar month"
-          cohort = gets.delete("\n").downcase.to_sym
+          cohort = STDIN.gets.delete("\n").downcase.to_sym
         end
 
     @students << {name: name, country: country, hobby: hobby, height: height, cohort: cohort}
@@ -41,7 +41,7 @@ def input_students
     end
 
     puts "Name:"
-    name = gets.delete("\n")
+    name = STDIN.gets.delete("\n")
       break if name.empty?
   end
 
@@ -120,7 +120,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -135,7 +135,7 @@ def save_students
   file.close
 end
 
-def load_students
+def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
@@ -144,10 +144,23 @@ def load_students
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first #first argument from the command line
+  return if filename.nil? #get out of the methods if it isn't given.
+  if File.exists?(filename)
+    load_students(filename)
+    puts "Loaded #{@students.count} students from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist."
+    exit
+  end
+end
+
 
 
 
 #students = input_students
+try_load_students
 interactive_menu
 #print_header(students)
 #print_by_cohort(students)
