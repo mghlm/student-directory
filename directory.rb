@@ -1,5 +1,6 @@
 @students = [] #accesible to all methods.
 
+#Asks user to input details about student such as name and cohort. Saves inputs as hashes in @students array.
 def input_students
   puts "Please enter the name, country of origin, hobby and height of the students"
   puts "To finish, just hit return twice"
@@ -47,6 +48,7 @@ def input_students
   @students
 end
 
+#Prints header only if there are students to list.
 def print_header
   if @students.length > 0
     puts "The students of Villains Academy".center(70)
@@ -54,6 +56,7 @@ def print_header
   end
 end
 
+#Prints list of students sorted by cohort.
 def print_student_list
   if @students.length > 0
     cohorts = @students.map do |student| student[:cohort] end
@@ -70,32 +73,39 @@ def print_student_list
   end
 end
 
+#Prints the footer that counts the number of students.
 def print_footer
   if @students.length > 0
     puts "Overall, we have #{@students.count} students."
   end
 end
 
+#Prints options for user inputs.
 def print_menu
   puts " "
   puts "What would you like to do?\n"
   puts "1. Input the students"
   puts "2. Show the students"
+  puts "3. Save the list to students.csv"
   puts "9. Exit"
 end
 
+#Prints header, list of students and footer
 def show_students
   print_header
   print_student_list
   print_footer
 end
 
+#Runs method depending on user input which is taken as an argument.
 def process(selection)
   case selection
   when "1"
     input_students
   when "2"
     show_students
+  when "3"
+    save_students
   when "9"
     exit
   else
@@ -103,13 +113,26 @@ def process(selection)
   end
 end
 
-
+#Keeps printing the menu and runs the process method based on user input (taken as argument)
 def interactive_menu
   loop do
     print_menu
     process(gets.chomp)
   end
 end
+
+#Saves list of student to seperate file.
+def save_students
+  file = File.open("students.csv", "w")
+  @students.each do |student|
+    student_data = [student[:name], student[:cohort]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
+  end
+  file.close
+end
+
+
 
 
 #students = input_students
