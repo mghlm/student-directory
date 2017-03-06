@@ -128,26 +128,26 @@ def save_students
   puts "Which file would you like to save changes to?"
   filename = STDIN.gets.chomp
   if File.exist?(filename)
-    file = File.open("filename", "w")
+    File.open(filename, "w") do |file|
     @students.each do |student|
       student_data = [student[:name], student[:country], student[:hobby], student[:height], student[:cohort]]
       csv_line = student_data.join(",")
       file.puts csv_line
     end
     puts "The changes have been saved.\n"
-    file.close
+  end
   else
     puts "Sorry, that file doesn't seem to exist."
   end
 end
 
 def load_students(filename = "students.csv")
-    file = File.open(filename, "r")
+    File.open(filename, "r") do |file|
     file.readlines.each do |line|
     name, country, hobby, height, cohort = line.chomp.split(',')
       add_students_to_list(name, country, hobby, height, cohort)
     end
-    file.close
+  end
 end
 
 def try_load_students
